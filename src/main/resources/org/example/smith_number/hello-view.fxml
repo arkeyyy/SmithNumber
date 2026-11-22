@@ -1,16 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.smith_number.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16"/>
+    </padding>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label text="Smith Number" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <VBox spacing="4">
+        <GridPane hgap="12" vgap="3">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints minWidth="120" prefWidth="120" maxWidth="120"/>
+                <ColumnConstraints minWidth="80" prefWidth="80" maxWidth="80"/>
+                <ColumnConstraints minWidth="80" prefWidth="80" maxWidth="80"/>
+            </columnConstraints>
+            <TextField fx:id="upperLimitField" minWidth="70" GridPane.rowIndex="1"/>
+            <TextField fx:id="threadCountField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Button fx:id="startButton" text="Start" defaultButton="true" onAction="#startSearch"
+                    maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+            <Button fx:id="stopButton" text="Stop" onAction="#stopSearch"
+                    maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            <Label text="Upper limit (num)" labelFor="$upperLimitField"/>
+            <Label text="Threads (cnt)" labelFor="$threadCountField" GridPane.columnIndex="1"/>
+        </GridPane>
+        <Label fx:id="errorLabel" visible="false" managed="${errorLabel.visible}"
+               wrapText="true" style="-fx-text-fill: #a52121;"/>
+    </VBox>
+
+    <Separator/>
+    <Label fx:id="statusLabel" wrapText="true"/>
+    <Label text="Thread progress" style="-fx-font-weight: bold;"/>
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="60" VBox.vgrow="ALWAYS">
+        <content>
+            <FlowPane fx:id="workerPane" hgap="12" vgap="12" prefWrapLength="680">
+                <padding>
+                    <Insets top="12" right="12" bottom="12" left="12"/>
+                </padding>
+            </FlowPane>
+        </content>
+    </ScrollPane>
+    <VBox spacing="6">
+        <Label text="Smith numbers" style="-fx-font-weight: bold;"/>
+        <TextArea fx:id="resultsArea" accessibleText="Smith numbers" editable="false" wrapText="true"
+                  prefHeight="70" minHeight="70"/>
+    </VBox>
+    <VBox>
+        <Label fx:id="smithCountLabel"/>
+        <Label fx:id="nonSmithCountLabel"/>
+        <Label fx:id="totalCountLabel"/>
+    </VBox>
 </VBox>
